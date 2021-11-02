@@ -1,0 +1,2 @@
+main: main.o basicClassification.o advancedClassificationLoop.o advancedClassificationRecursion.o
+    gcc -o main main.c basicClassification.c advancedClassificationLoop.c advancedClassificationRecursion.c -I.
