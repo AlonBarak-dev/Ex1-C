@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <math.h>
+
 
 int length(int num){
     if (num == 0)

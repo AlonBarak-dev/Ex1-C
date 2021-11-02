@@ -1,18 +1,18 @@
 #include <stdio.h>
-#include "basicClassification.c"
-//#include "advancedClassificationLoop.c"
-#include "advancedClassificationRecursion.c"
+#include "NumClass.h"
+
+
+int main(){
+
 int isPrime(int num);
 int isStrong(int num);
 int isArmstrong(int num);
 int isPalindrome(int num);
 
-
-int main(){
-
     int x = 0, y = 0;
-    printf("please insert two values: \n");
+    printf("please insert the smaller value: \n");
     scanf("%d", &x);
+    printf("please insert the bigger value: \n");
     scanf("%d", &y);
 
     printf("is prime: ");
