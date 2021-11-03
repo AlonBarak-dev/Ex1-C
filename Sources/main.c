@@ -15,45 +15,45 @@ int isPalindrome(int num);
     printf("please insert the bigger value: \n");
     scanf("%d", &y);
 
-    printf("is prime: ");
+    printf("The prime numbers are: ");
     for (int  i = x; i <= y; i++)
     {
         if (isPrime(i) == 1)
         {
-            printf("%d , ",i);
+            printf("%d  ",i);
         }
     }
     
     printf("\n");
 
-    printf("is Strong: ");
+    printf("The strong numbers are: ");
     for (int  i = x; i <= y; i++)
     {
         if (isStrong(i) == 1)
         {
-            printf("%d , ",i);
+            printf("%d  ",i);
         }
     }
 
     printf("\n");
 
-    printf("is Armstrong: ");
+    printf("The Armstrong numbers are: ");
     for (int  i = x; i <= y; i++)
     {
         if (isArmstrong(i) == 1)
         {
-            printf("%d , ",i);
+            printf("%d  ",i);
         }
     }
 
     printf("\n");
 
-    printf("is Palindrome: ");
+    printf("The Palindrome numbers are: ");
     for (int  i = x; i <= y; i++)
     {
         if (isPalindrome(i) == 1)
         {
-            printf("%d , ",i);
+            printf("%d  ",i);
         }
     }
 
