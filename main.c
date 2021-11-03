@@ -27,7 +27,7 @@ int isPalindrome(int num);
     printf("\n");
 
 
-    printf("The Palindrome numbers are: ");
+    printf("TThe Palindromes are: ");
     for (int  i = x; i <= y; i++)
     {
         if (isPalindrome(i) == 1)
