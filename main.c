@@ -14,8 +14,6 @@ int isPalindrome(int num);
     scanf("%d", &x);
     scanf("%d", &y);
 
-
-
     if (x <= y)
     {
         printf("The Armstrong numbers are: ");

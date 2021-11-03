@@ -1,4 +1,3 @@
-
 clean:
 	rm *a *o *so mains maindloop maindrec
 
