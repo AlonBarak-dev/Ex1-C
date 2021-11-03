@@ -1,46 +1,58 @@
-clean:
-	rm *a *o *so mains maindloop maindrec
+baseOBJ = basicClassification.o
+loopOBJ = advancedClassificationLoop.o
+recOBJ = advancedClassificationRecursion.o
+CC = gcc
+FLAGS_OBJ = -c -fpic -Wall
+FLAGS_SO = -Wall -o
+FLAGS_MAIN = -Wall main.o -L. -l
+RM_FLAGS = *a *o *so
+PROGS = mains maindloop maindrec
+.PHONY = all clean
 
-all: mains maindloop maindrec
+
+
+clean:
+	rm $(RM_FLAGS) $(PROGS)
+
+all: $(PROGS)
 
 basicClassification.o: basicClassification.c
-	gcc -c -fpic -Wall basicClassification.c
+	$(CC) $(FLAGS_OBJ) basicClassification.c
 
 advancedClassificationLoop.o: advancedClassificationLoop.c
-	gcc -c -fpic -Wall advancedClassificationLoop.c
+	$(CC) $(FLAGS_OBJ) advancedClassificationLoop.c
 
 advancedClassificationRecursion.o: advancedClassificationRecursion.c
-	gcc -c -fpic -Wall advancedClassificationRecursion.c
+	$(CC) $(FLAGS_OBJ) advancedClassificationRecursion.c
 
 main.o: main.c NumClass.h
-	gcc -c -fpic -Wall main.c
+	$(CC) $(FLAGS_OBJ) main.c
 
 loops: libclassloops.a
 
-libclassloops.a: basicClassification.o advancedClassificationLoop.o
-	ar -rcs libclassloops.a basicClassification.o advancedClassificationLoop.o
+libclassloops.a: $(baseOBJ) $(loopOBJ)
+	ar -rcs libclassloops.a $(baseOBJ) $(loopOBJ)
 
-recursives: libclassrec.a
+‫‪recursives‬‬: libclassrec.a
 
-libclassrec.a: basicClassification.o advancedClassificationRecursion.o
-	ar -rcs libclassrec.a basicClassification.o advancedClassificationRecursion.o
+libclassrec.a: $(baseOBJ) $(recOBJ)
+	ar -rcs libclassrec.a $(baseOBJ) $(recOBJ)
 
-loopd: libclassloops.so
+‫‪loopd‬‬: libclassloops.so
 
-libclassloops.so: basicClassification.o advancedClassificationLoop.o
-	gcc -shared basicClassification.o advancedClassificationLoop.o -Wall -o libclassloops.so
+libclassloops.so: $(baseOBJ) $(loopOBJ)
+	$(CC) -shared $(baseOBJ) $(loopOBJ) $(FLAGS_SO) libclassloops.so
 
-recursived: libclassrec.so
+‫‪recursived‬‬: libclassrec.so
 
-libclassrec.so: basicClassification.o advancedClassificationRecursion.o
-	gcc -shared basicClassification.o advancedClassificationRecursion.o -Wall -o libclassrec.so
-
+libclassrec.so: $(recOBJ) $(baseOBJ)
+	$(CC) -shared $(baseOBJ) $(recOBJ) $(FLAGS_SO) libclassrec.so
 
 mains: main.o libclassrec.a
-	gcc -Wall main.o -L. -lclassrec -o mains
+	$(CC) $(FLAGS_MAIN)classrec -o mains
 
 maindloop: main.o libclassloops.so
-	gcc -Wall main.o -L. -lclassloops -o maindloop
+	$(CC) $(FLAGS_MAIN)classloops -o maindloop
 
 maindrec: main.o libclassrec.so
-	gcc -Wall main.o -L. -lclassrec -o maindrec
+	$(CC) $(FLAGS_MAIN)classrec -o maindrec
