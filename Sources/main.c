@@ -10,34 +10,15 @@ int isArmstrong(int num);
 int isPalindrome(int num);
 
     int x = 0, y = 0;
-    printf("please insert the smaller value: \n");
+    printf("please insert two values value: \n");
     scanf("%d", &x);
-    printf("please insert the bigger value: \n");
     scanf("%d", &y);
 
-    printf("The prime numbers are: ");
-    for (int  i = x; i <= y; i++)
+
+
+    if (x <= y)
     {
-        if (isPrime(i) == 1)
-        {
-            printf("%d  ",i);
-        }
-    }
-    
-    printf("\n");
-
-    printf("The strong numbers are: ");
-    for (int  i = x; i <= y; i++)
-    {
-        if (isStrong(i) == 1)
-        {
-            printf("%d  ",i);
-        }
-    }
-
-    printf("\n");
-
-    printf("The Armstrong numbers are: ");
+        printf("The Armstrong numbers are: ");
     for (int  i = x; i <= y; i++)
     {
         if (isArmstrong(i) == 1)
@@ -45,8 +26,9 @@ int isPalindrome(int num);
             printf("%d  ",i);
         }
     }
-
+    
     printf("\n");
+
 
     printf("The Palindrome numbers are: ");
     for (int  i = x; i <= y; i++)
@@ -59,7 +41,79 @@ int isPalindrome(int num);
 
     printf("\n");
 
+    printf("The Prime numbers are: ");
+    for (int  i = x; i <= y; i++)
+    {
+        if (isPrime(i) == 1)
+        {
+            printf("%d  ",i);
+        }
+    }
+    
+    printf("\n");
 
+    printf("The Strong numbers are: ");
+    for (int  i = x; i <= y; i++)
+    {
+        if (isStrong(i) == 1)
+        {
+            printf("%d  ",i);
+        }
+    }
+
+    printf("\n");
+
+    }
+    
+    if (x > y)
+    {
+        printf("The Armstrong numbers are: ");
+    for (int  i = y; i <= x; i++)
+    {
+        if (isArmstrong(i) == 1)
+        {
+            printf("%d  ",i);
+        }
+    }
+    
+    printf("\n");
+
+
+    printf("The Palindrome numbers are: ");
+    for (int  i = y; i <= x; i++)
+    {
+        if (isPalindrome(i) == 1)
+        {
+            printf("%d  ",i);
+        }
+    }
+
+    printf("\n");
+
+    printf("The Prime numbers are: ");
+    for (int  i = y; i <= x; i++)
+    {
+        if (isPrime(i) == 1)
+        {
+            printf("%d  ",i);
+        }
+    }
+    
+    printf("\n");
+
+    printf("The Strong numbers are: ");
+    for (int  i = y; i <= x; i++)
+    {
+        if (isStrong(i) == 1)
+        {
+            printf("%d  ",i);
+        }
+    }
+
+    printf("\n");
+
+    }
+    
 
     return 0;
 }
