@@ -1,58 +1,53 @@
-baseOBJ = basicClassification.o
+.PHONY: all clean
+CC=gcc
+AR=ar
+FLAGS= -Wall -g
+basicOBJ = basicClassification.o
 loopOBJ = advancedClassificationLoop.o
 recOBJ = advancedClassificationRecursion.o
-CC = gcc
-FLAGS_OBJ = -c -fpic -Wall
-FLAGS_SO = -Wall -o
-FLAGS_MAIN = -Wall main.o -L. -l
-RM_FLAGS = *a *o *so
 PROGS = mains maindloop maindrec
-.PHONY = all clean
 
+all: libclassloops.a libclassrec.a libclassrec.so libclassloops.so $(PROGS)
 
-
-clean:
-	rm $(RM_FLAGS) $(PROGS)
-
-all: $(PROGS)
-
-basicClassification.o: basicClassification.c
-	$(CC) $(FLAGS_OBJ) basicClassification.c
-
-advancedClassificationLoop.o: advancedClassificationLoop.c
-	$(CC) $(FLAGS_OBJ) advancedClassificationLoop.c
-
-advancedClassificationRecursion.o: advancedClassificationRecursion.c
-	$(CC) $(FLAGS_OBJ) advancedClassificationRecursion.c
-
-main.o: main.c NumClass.h
-	$(CC) $(FLAGS_OBJ) main.c
-
-loops: libclassloops.a
-
-libclassloops.a: $(baseOBJ) $(loopOBJ)
-	ar -rcs libclassloops.a $(baseOBJ) $(loopOBJ)
-
-‫‪recursives‬‬: libclassrec.a
-
-libclassrec.a: $(baseOBJ) $(recOBJ)
-	ar -rcs libclassrec.a $(baseOBJ) $(recOBJ)
-
-‫‪loopd‬‬: libclassloops.so
-
-libclassloops.so: $(baseOBJ) $(loopOBJ)
-	$(CC) -shared $(baseOBJ) $(loopOBJ) $(FLAGS_SO) libclassloops.so
-
-‫‪recursived‬‬: libclassrec.so
-
-libclassrec.so: $(recOBJ) $(baseOBJ)
-	$(CC) -shared $(baseOBJ) $(recOBJ) $(FLAGS_SO) libclassrec.so
+###
 
 mains: main.o libclassrec.a
-	$(CC) $(FLAGS_MAIN)classrec -o mains
-
+	$(CC) $(FLAGS) -o mains main.o libclassrec.a	
 maindloop: main.o libclassloops.so
-	$(CC) $(FLAGS_MAIN)classloops -o maindloop
-
+	$(CC) $(FLAGS) -o maindloop main.o ./libclassloops.so
 maindrec: main.o libclassrec.so
-	$(CC) $(FLAGS_MAIN)classrec -o maindrec
+	$(CC) $(FLAGS) -o maindrec main.o ./libclassrec.so
+
+###
+
+loops: libclassloops.a
+libclassloops.a: $(basicOBJ) $(loopOBJ)
+	$(AR) -rcs libclassloops.a $(basicOBJ) $(loopOBJ)
+
+recursives: libclassrec.a
+libclassrec.a: $(basicOBJ) $(recOBJ)
+	$(AR) -rcs libclassrec.a $(basicOBJ) $(recOBJ)	
+
+recursived: libclassrec.so
+libclassrec.so: $(basicOBJ) $(recOBJ) 
+	$(CC) -shared -o libclassrec.so $(basicOBJ) $(recOBJ)
+
+loopd:libclassloops.so
+libclassloops.so: $(basicOBJ) $(loopOBJ)
+	$(CC) -shared -o libclassloops.so $(basicOBJ) $(loopOBJ)
+
+###
+
+main.o: main.c NumClass.h
+	$(CC) $(FLAGS) -c main.c
+basicClassification.o: basicClassification.c NumClass.h 
+	$(CC) $(FLAGS) -c basicClassification.c
+advancedClassificationLoop.o: advancedClassificationLoop.c NumClass.h 
+	$(CC) $(FLAGS) -c advancedClassificationLoop.c
+advancedClassificationRecursion.o: advancedClassificationRecursion.c NumClass.h 
+	$(CC) $(FLAGS) -c advancedClassificationRecursion.c
+
+###
+
+clean: 
+	rm -f *.a *.o *.so $(PROGS)
